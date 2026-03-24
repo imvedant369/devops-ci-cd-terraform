@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      TF_INPUT : false 
       TF_VAR_aws_region: ap-south-1
       TF_VAR_prefix: devopstechpro
       TF_VAR_bucket_names: '["1","2","3","4","5"]'
@@ -45,6 +46,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      TF_INPUT : false 
       TF_VAR_aws_region: ap-south-1
       TF_VAR_prefix: devopstechpro
       TF_VAR_bucket_names: '["1","2","3","4","5"]'
@@ -72,6 +74,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      TF_INPUT : false 
       TF_VAR_aws_region: ap-south-1
       TF_VAR_prefix: devopstechpro
       TF_VAR_bucket_names: '["1","2","3","4","5"]'
