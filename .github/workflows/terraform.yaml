@@ -1,0 +1,57 @@
+name: Terraform Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - feature/*
+
+jobs:
+
+  plan:
+    if: github.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v2
+
+      - uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
+
+      - run: terraform init
+        working-directory: ./terraform
+
+      - run: terraform workspace select development || terraform workspace new development
+        working-directory: ./terraform
+
+      - run: terraform plan
+        working-directory: ./terraform
+
+
+  apply:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v2
+
+      - uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
+
+      - run: terraform init
+        working-directory: ./terraform
+
+      - run: terraform workspace select development
+        working-directory: ./terraform
+
+      - run: terraform apply -auto-approve
+        working-directory: ./terraform
+        
