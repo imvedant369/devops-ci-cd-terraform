@@ -1,6 +1,6 @@
-environment = "development"
+prefix = "development"
 
-bucket_name = [
+bucket_names = [
     "core",
     "frontend",
     "backend",

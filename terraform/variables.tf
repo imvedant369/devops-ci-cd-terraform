@@ -3,7 +3,7 @@ variable "environment" {
     type=string
 }
 
-variable "bucket_name" {
-    description = "list of bucket names"
-    type = list(string)
+variable "prefix" {
+    description = "Company prefix"
+    type        = string 
 }

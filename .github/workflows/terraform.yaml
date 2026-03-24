@@ -14,6 +14,11 @@ jobs:
     if: github.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
 
+    env:
+      TF_VAR_aws_region: ap-south-1
+      TF_VAR_prefix: devopstechpro
+      TF_VAR_bucket_names: '["1","2","3","4","5"]'
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -26,7 +31,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-south-1
+          aws-region: ${{ env.TF_VAR_aws_region }}
 
       - name: Terraform Init
         run: terraform -chdir=terraform init
@@ -39,6 +44,11 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
+    env:
+      TF_VAR_aws_region: ap-south-1
+      TF_VAR_prefix: devopstechpro
+      TF_VAR_bucket_names: '["1","2","3","4","5"]'
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -51,10 +61,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-south-1
-
-      - name: Terraform Init
-        run: terraform -chdir=terraform init
+          aws-region: ${{ env.TF_VAR_aws_region }}
 
       - name: Terraform Apply
         run: terraform -chdir=terraform apply -auto-approve
@@ -64,6 +71,11 @@ jobs:
     if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
 
+    env:
+      TF_VAR_aws_region: ap-south-1
+      TF_VAR_prefix: devopstechpro
+      TF_VAR_bucket_names: '["1","2","3","4","5"]'
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -76,10 +88,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-south-1
-
-      - name: Terraform Init
-        run: terraform -chdir=terraform init
+          aws-region: ${{ env.TF_VAR_aws_region }}
 
       - name: Terraform Destroy
         run: terraform -chdir=terraform destroy -auto-approve

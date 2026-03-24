@@ -1,9 +1,6 @@
-resource "aws_s3_bucket" "demo" {
-    for_each = toset (var.bucket_name)
-    
-    bucket = "example-${each.value}-${var.environment}"
-    tags = {
-        Name = each.value
-        Enviornment = var.environment
-    }
+
+resource "aws_s3_bucket" "buckets" {
+  for_each = toset(var.bucket_names)
+
+  bucket = "${var.prefix}-bucket-${each.value}"
 }
