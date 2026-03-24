@@ -1,9 +1,11 @@
-variable "environment" {
-    description = "Enviornment name"
-    type=string
+variable "aws_region" {
+  type = string
 }
 
 variable "prefix" {
-    description = "Company prefix"
-    type        = string 
+  type = string
+}
+
+variable "bucket_names" {
+  type = list(string)
 }
